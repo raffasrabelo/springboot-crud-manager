@@ -30,6 +30,7 @@ public class Supplier {
     @Column(nullable = false)
     private String email;
 
+    @Size(min = 10, max = 11, message = "Telefone inválido!")
     @NotBlank(message = "O telefone é obrigatório")
     private String phone;
 
