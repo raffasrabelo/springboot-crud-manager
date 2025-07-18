@@ -27,14 +27,14 @@ public class ProductController {
         return "product/list";
     }
 
-    @GetMapping("/novo")
+    @GetMapping("/new")
     public String newProduct(Model model) {
         model.addAttribute("product", new Product());
         model.addAttribute("suppliers", supplierRepository.findAll());
         return "product/form";
     }
 
-    @PostMapping("/salvar")
+    @PostMapping("/save")
     public String save(@Valid @ModelAttribute("product") Product product, BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("suppliers", supplierRepository.findAll());
@@ -44,7 +44,7 @@ public class ProductController {
         return "redirect:/products";
     }
 
-    @GetMapping("/editar/{id}")
+    @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Long id, Model model) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Produto inválido:" + id));
@@ -53,7 +53,7 @@ public class ProductController {
         return "product/form";
     }
 
-    @GetMapping("/deletar/{id}")
+    @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id") Long id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Produto inválido:" + id));
