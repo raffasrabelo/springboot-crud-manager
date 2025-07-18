@@ -1,5 +1,7 @@
 package br.edu.ifsuldeminas.mch.springbootcrud.model.entity;
 
+
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

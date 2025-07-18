@@ -12,7 +12,7 @@ import br.edu.ifsuldeminas.mch.springbootcrud.model.repository.ProductRepository
 import br.edu.ifsuldeminas.mch.springbootcrud.model.repository.SupplierRepository;
 
 @Controller
-@RequestMapping("/produtos")
+@RequestMapping("/products")
 public class ProductController {
 
     @Autowired
@@ -23,34 +23,34 @@ public class ProductController {
 
     @GetMapping
     public String list(Model model) {
-        model.addAttribute("produtos", productRepository.findAll());
-        return "produto/list";
+        model.addAttribute("products", productRepository.findAll());
+        return "product/list";
     }
 
     @GetMapping("/novo")
     public String newProduct(Model model) {
-        model.addAttribute("produto", new Product());
-        model.addAttribute("fornecedores", supplierRepository.findAll());
-        return "produto/form";
+        model.addAttribute("product", new Product());
+        model.addAttribute("suppliers", supplierRepository.findAll());
+        return "product/form";
     }
 
     @PostMapping("/salvar")
-    public String save(@Valid @ModelAttribute("produto") Product product, BindingResult result, Model model) {
+    public String save(@Valid @ModelAttribute("product") Product product, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            model.addAttribute("fornecedores", supplierRepository.findAll());
-            return "produto/form";
+            model.addAttribute("suppliers", supplierRepository.findAll());
+            return "product/form";
         }
         productRepository.save(product);
-        return "redirect:/produtos";
+        return "redirect:/products";
     }
 
     @GetMapping("/editar/{id}")
     public String edit(@PathVariable("id") Long id, Model model) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Produto inválido:" + id));
-        model.addAttribute("produto", product);
-        model.addAttribute("fornecedores", supplierRepository.findAll());
-        return "produto/form";
+        model.addAttribute("product", product);
+        model.addAttribute("suppliers", supplierRepository.findAll());
+        return "product/form";
     }
 
     @GetMapping("/deletar/{id}")
@@ -58,6 +58,6 @@ public class ProductController {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Produto inválido:" + id));
         productRepository.delete(product);
-        return "redirect:/produtos";
+        return "redirect:/products";
     }
 }
